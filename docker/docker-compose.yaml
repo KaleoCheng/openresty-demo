@@ -1,0 +1,26 @@
+version: '2'
+services:
+  web:
+    image: kaleocheng/openresty
+    ports:
+    - "443:443"
+    - "80:80"
+    volumes:
+    - ../conf:/app/conf
+    - ../logs:/app/logs
+    - ../lua:/app/lua
+    - ../docker:/app/docker
+    command: ["-p", "/app", "-c", "conf/nginx.conf"]
+    privileged: true
+  hub-1:
+    build: ./registry
+    expose:
+      - "5000"
+  hub-2:
+    build: ./registry
+    expose:
+      - "5000"
+  hub-3:
+    build: ./registry
+    expose:
+      - "5000"
